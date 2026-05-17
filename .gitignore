@@ -1,0 +1,72 @@
+# ------------------------------------------------------------------------------
+# Haskell / Cabal / Stack build artifacts
+# ------------------------------------------------------------------------------
+
+dist/
+dist-*/
+dist-newstyle/
+cabal-dev/
+cabal.project.local
+cabal.project.local~
+cabal.sandbox.config
+.cabal-sandbox/
+.stack-work/
+.ghc.environment.*
+.hsenv/
+
+
+# ------------------------------------------------------------------------------
+# GHC compilation artifacts
+# ------------------------------------------------------------------------------
+
+*.o
+*.hi
+*.hie
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+
+
+# ------------------------------------------------------------------------------
+# Profiling, coverage, and runtime traces
+# ------------------------------------------------------------------------------
+
+.hpc/
+*.prof
+*.aux
+*.hp
+*.eventlog
+.HTF/
+
+
+# ------------------------------------------------------------------------------
+# Coding agents / local AI assistant configuration
+# ------------------------------------------------------------------------------
+
+.codex/
+.claude/
+.gemini/
+.cursor/
+.github/
+.agents/
+
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+.mcp.json
+
+.geminiignore
+.cursorignore
+.cursorindexingignore
+
+
+# ------------------------------------------------------------------------------
+# Editor / IDE local files
+# ------------------------------------------------------------------------------
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json

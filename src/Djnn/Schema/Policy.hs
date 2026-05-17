@@ -1,0 +1,42 @@
+-- | The tool/command __execution-policy__ surface — acknowledged and
+-- __deliberately unmodeled__ in v1.
+--
+-- This module exports nothing and defines no type on purpose. It exists
+-- so the non-coverage of this surface is an auditable artifact rather
+-- than a silent gap — the project's stated philosophy: state a non-goal
+-- explicitly, do not attempt it and fail quietly.
+--
+-- == What this surface is
+--
+-- A predicate over a command\/tool invocation mapping to a decision,
+-- @pattern -> {allow | prompt | deny}@. It is /universal/ — present in
+-- every runtime — and is __distinct from the coarse default__ modeled
+-- by @Djnn.Schema.Approval@. Each runtime keeps it as a separate config
+-- key:
+--
+--   * __Codex CLI__ — execpolicy, Starlark @prefix_rule()@ entries
+--     returning @allow@\/@prompt@\/@forbidden@ for argv prefixes
+--     (gating commands run outside the sandbox). Referenced from the
+--     config schema via @GranularApprovalConfig.rules@.
+--   * __Gemini CLI__ — Policy Engine, @policies\/*.toml@ with @[[rule]]@
+--     entries and a @decision@ (e.g. @ask_user@); loaded via
+--     @policyPaths@ \/ @adminPolicyPaths@ in @settings.json@.
+--   * __Claude Code__ — @permissions.{allow,ask,deny}@ arrays of
+--     rule-strings such as @Bash(git push *)@ in @settings.json@.
+--   * __Cursor \/ Copilot__ — weaker allowlist forms (sandbox config /
+--     flag allowlists).
+--
+-- == Why it is not modeled
+--
+-- These are four mutually incompatible encodings of one idea: inline
+-- JSON rule-strings vs. Starlark functions vs. TOML rule tables vs.
+-- flag allowlists. It is the highest abstraction-cost-to-value surface
+-- in the entire taxonomy — the Tier-2 worst case. A canonical type
+-- introduced now would either lose expressiveness on every target or
+-- balloon to a union of all four, so it is deferred. Users author the
+-- runtime-native policy files directly until a later version earns the
+-- abstraction.
+--
+-- This module is intentionally /not/ in @exposed-modules@; it is an
+-- @other-modules@ documentation node, or simply a design record.
+module Djnn.Schema.Policy () where

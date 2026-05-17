@@ -1,0 +1,82 @@
+cabal-version:        3.8
+
+name:                 djnn
+version:              0.1.0.0
+synopsis:             Centralized configuration for multiple CLI coding agents
+
+description:          djnn centralizes a project's coding-agent configuration --
+                      instructions, skills, subagents, lifecycle hooks, MCP
+                      servers, approval defaults, and similar surfaces -- in one
+                      canonical source, then generates the files each agent
+                      expects.
+                      The same configuration is reused across Claude Code, Codex
+                      CLI, Gemini CLI, Cursor Agent CLI, Copilot CLI, Kiro CLI,
+                      and others instead of duplicated by hand.
+
+category:             Development, Configuration
+
+homepage:             https://github.com/lucasbrixner/djnn
+bug-reports:          https://github.com/lucasbrixner/djnn/issues
+
+license:              BSD-3-Clause
+license-file:         LICENSE
+author:               Lucas Brixner Riça
+maintainer:           io.brixner@gmail.com
+copyright:            2026 Lucas Brixner Riça
+
+build-type:           Simple
+
+extra-doc-files:      README.md
+                      CHANGELOG.md
+
+-- extra-source-files:
+
+source-repository head
+    type:             git
+    location:         https://github.com/lucasbrixner/djnn.git
+
+common warnings
+    ghc-options:      -Wall
+
+library
+    import:           warnings
+
+    exposed-modules:  Djnn.Codec
+                      Djnn.Canonical
+                      Djnn.Schema.Approval
+                      Djnn.Schema.Hook
+                      Djnn.Schema.MCP
+
+    other-modules:    Djnn.Schema.Policy
+
+    build-depends:    base >=4.18 && <4.19
+
+    hs-source-dirs:   src
+
+    default-language: GHC2021
+
+executable djnn
+    import:           warnings
+
+    main-is:          Main.hs
+
+    build-depends:    base >=4.18 && <4.19,
+                      djnn
+
+    hs-source-dirs:   app
+
+    default-language: GHC2021
+
+test-suite djnn-test
+    type:             exitcode-stdio-1.0
+
+    main-is:          Main.hs
+
+    build-depends:    base >=4.18 && <4.19,
+                      djnn,
+                      tasty,
+                      tasty-hunit
+
+    hs-source-dirs:   test
+
+    default-language: GHC2021
