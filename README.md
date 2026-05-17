@@ -1,11 +1,12 @@
 # `djnn`
 
-`djnn` is a configuration compiler for CLI-based coding agents.
+`djnn` centralizes a project's coding-agent configuration in one canonical
+source and generates the files expected by multiple CLI coding-agents.
 
 Its purpose is to let a project define coding-agent configuration once, in a
-canonical source, and then generate the runtime-specific files expected by tools
-such as Claude Code, Codex CLI, Gemini CLI, Cursor Agent CLI, GitHub Copilot,
-Kiro, and related agent runtimes.
+canonical source, and then generate the agent-specific files expected by tools
+such as Claude Code, Codex CLI, Gemini CLI, Cursor Agent CLI, Copilot CLI, Kiro
+CLI, and related coding-agents.
 
 Instead of hand-maintaining several partially-overlapping configuration trees,
 `djnn` models the shared surfaces explicitly:
@@ -14,11 +15,11 @@ Instead of hand-maintaining several partially-overlapping configuration trees,
 - lifecycle hooks;
 - coarse approval defaults;
 - later: instructions, skills, subagents, custom commands, workflows, and other
-  runtime-specific surfaces.
+  agent-specific surfaces.
 
 The project is intentionally conservative. It does not try to flatten every
-runtime feature into one large universal schema. It starts from the surfaces that
-are genuinely portable, records non-goals explicitly, and validates only the
+coding-agent feature into one large universal schema. It starts from the surfaces
+that are genuinely portable, records non-goals explicitly, and validates only the
 invariants that were deliberately left unencoded in the types.
 
 ## Name
@@ -67,7 +68,7 @@ Implemented:
 Not implemented yet:
 
 - authored config decoding, such as YAML, TOML, or JSON;
-- runtime-specific generators/adapters;
+- coding-agent-specific generators/adapters;
 - actual CLI command behavior;
 - filesystem writes;
 - conformance fixtures;
@@ -75,7 +76,7 @@ Not implemented yet:
 
 The MVP is intentionally small. Its first goal is to establish the canonical
 algebra and validation boundaries before choosing parser dependencies or writing
-runtime adapters.
+coding-agent adapters.
 
 ## Design principles
 
