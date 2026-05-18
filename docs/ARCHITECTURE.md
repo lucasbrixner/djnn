@@ -4,9 +4,8 @@ This document records the current architectural direction for `djnn`: the
 layering, vocabulary, working invariants, and design questions that are being
 deferred deliberately.
 
-It is a companion to [`docs/ROADMAP.md`](docs/ROADMAP.md). The roadmap tracks
-what is planned and when; this document explains the design pressures behind
-that plan.
+It is a companion to [`docs/ROADMAP.md`](ROADMAP.md). The roadmap tracks what is
+planned and when; this document explains the design pressures behind that plan.
 
 `djnn` is still an early prototype. These notes should therefore be read as a
 working architecture, not as a permanent constitution. Some names, boundaries,
