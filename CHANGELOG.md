@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+### Added
+
+- Added `ARCHITECTURE.md` to record the current Surface-oriented architecture
+  direction: explicit per-agent surfaces, per-concern unified views, a deferred
+  cross-concern aggregate, and an explicit mapping layer.
+
+### Changed
+
+- Restructured `docs/ROADMAP.md` around the current sequencing preference:
+  preserve the v0 prototype and validation baseline, then map per-agent
+  surfaces, unify per concern, add aggregation and mapping, decode authored
+  config, implement the CLI, and add conformance fixtures.
+- Realigned the roadmap phase branch-name examples in `CONTRIBUTING.md` with the
+  updated roadmap phases.
+
 ### Fixed
 
 - Corrected the canonical hook-event set: `UserPromptSubmit` is in the
