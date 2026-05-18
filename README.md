@@ -80,27 +80,34 @@ coding-agent adapters.
 
 ## Design principles
 
-### The schema is the algebra
+### Typed surfaces are the modelling boundary
 
-The `Djnn.Schema.*` modules define plain Haskell data types for portable
-configuration surfaces.
+The current prototype uses `Djnn.Schema.*` modules for the first portable
+configuration surfaces. As the project grows, the intended direction is to make
+per-agent surfaces explicit and then derive unified concern-level views from
+them.
 
-They are intentionally simple:
+The project should keep the low-level modelling layer simple:
 
 - no parser dependencies;
-- no serialization instances yet;
-- no runtime adapter logic;
-- no cross-surface imports;
-- derived instances only.
+- no serialization instances unless deliberately introduced;
+- no adapter logic;
+- dependency-light data types;
+- derived instances where sufficient.
 
-Each schema leaf models one surface. Leaves do not know about each other.
+The goal is not to flatten every agent capability into one universal schema. The
+goal is to model the surfaces clearly enough that portability claims can be
+checked rather than asserted only in prose.
 
-### `Djnn.Canonical` is the aggregator
+### Project-level configuration is aggregated explicitly
 
-`Djnn.Canonical` composes the independent schema leaves into one project-level
-configuration value.
+The current prototype uses `Djnn.Canonical` to compose the independent schema
+leaves into one project-level configuration value.
 
-Adapters should consume `Canonical`, not individual authored files.
+That role may evolve as per-agent surfaces and per-concern unified views are
+introduced, but the boundary remains the same: decoders and generators should
+work through typed project configuration, not through ad hoc authored files or
+untyped string assembly.
 
 ### The codec is the validation algebra
 

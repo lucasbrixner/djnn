@@ -16,6 +16,8 @@
   config, implement the CLI, and add conformance fixtures.
 - Realigned the roadmap phase branch-name examples in `CONTRIBUTING.md` with the
   updated roadmap phases.
+- Realigned the `README.md` design-principles section with the current
+  Surface-oriented architecture direction.
 
 ### Fixed
 
