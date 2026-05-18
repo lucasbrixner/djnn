@@ -18,17 +18,33 @@ module Djnn.Schema.Hook
   , canonicalHookEvents
   ) where
 
--- | The canonical hook event set: precisely the events Claude Code and
--- Codex both expose under /identical names/ in their published schemas.
--- This intersection is the safe portable core. Events appearing in only
--- one runtime — e.g. Claude's @PostToolUseFailure@ and
--- @PermissionDenied@ — are intentionally excluded, so a 'Hook' built
--- from this type is guaranteed to render on both. The Gemini adapter
--- maps these onto Gemini's hook system, which shares the same lifecycle
--- concepts under different names.
+-- | The canonical hook event set: the lifecycle events that appear,
+-- under /identical names/, in __both__ the Claude Code and Codex
+-- published hook schemas. This intersection is the portable core.
+--
+-- The set is split by /strength of guarantee/, because "present in the
+-- schema" and "emitted by the runtime today" are different claims:
+--
+--   * Documented /and/ emitted on both — the strong core:
+--     'SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse',
+--     'Stop'. Each is a documented event with emission semantics on
+--     both Claude Code and Codex.
+--   * Schema-present on both, Codex runtime emission /not yet
+--     documented/: 'PreCompact', 'PostCompact', 'PermissionRequest'.
+--     These exist in Codex's generated wire schemas and config schema,
+--     but the Codex hooks documentation does not yet describe them as
+--     emitted (hooks are documented there as experimental). They are
+--     retained because schema-presence on both sides is the modelling
+--     basis; the render guarantee for them is schema-level, not
+--     emission-level.
+--
+-- Events in only one of the two — e.g. Claude's @PostToolUseFailure@
+-- and @PermissionDenied@ — are intentionally excluded. The Gemini
+-- adapter maps this set onto Gemini's hook system, which carries the
+-- same lifecycle concepts under different names.
 --
 -- Constructor order is lifecycle order, not a semantic ranking; it
--- exists only so 'Enum'\/'Bounded' can enumerate the set.
+-- carries no meaning beyond letting 'Enum'\/'Bounded' enumerate the set.
 data HookEvent
   = SessionStart
   | UserPromptSubmit
