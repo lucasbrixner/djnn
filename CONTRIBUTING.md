@@ -79,12 +79,15 @@ description. Roadmap phases use that slot for the phase number, so the branch
 name still says which phase it is while staying fully spec-compliant:
 
 ```text
-feature/phase-1-canonical-schema
-feature/phase-2-codec-validation
-feature/phase-3-authored-decoder
-feature/phase-4-runtime-generators
-feature/phase-5-cli
-feature/phase-6-conformance-fixtures
+feature/phase-1-v0-prototype-baseline
+feature/phase-2-validation-codec
+feature/phase-3-surface-mapping
+feature/phase-4-concern-unification
+feature/phase-5-aggregation-mapping
+feature/phase-6-authored-decoder
+feature/phase-7-cli
+feature/phase-8-conformance-fixtures
+feature/phase-9-broader-surfaces
 ```
 
 Non-phase work uses a plain description:
