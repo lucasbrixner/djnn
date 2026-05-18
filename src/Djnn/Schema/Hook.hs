@@ -31,6 +31,7 @@ module Djnn.Schema.Hook
 -- exists only so 'Enum'\/'Bounded' can enumerate the set.
 data HookEvent
   = SessionStart
+  | UserPromptSubmit
   | PreToolUse
   | PostToolUse
   | Stop
