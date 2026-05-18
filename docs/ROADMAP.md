@@ -75,7 +75,7 @@ shape fully covers their role.
 These items are independent of the architecture migration and should be handled
 before or alongside the early phases.
 
-- [ ] `fix/hook-event-intersection` — Add the missing `UserPromptSubmit` hook
+- [x] `fix/hook-event-intersection` — Add the missing `UserPromptSubmit` hook
       event, update the `HookEvent` rationale to distinguish documented emission
       from schema presence, add regression tests, and update `CHANGELOG.md`.
 
