@@ -1,6 +1,7 @@
 module Main (main) where
 
 import Data.List.NonEmpty (NonEmpty (..))
+import Data.List (sort)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -14,6 +15,14 @@ main =
 
 tests :: TestTree
 tests =
+  testGroup
+    "djnn"
+    [ codecTests
+    , hookTests
+    ]
+
+codecTests :: TestTree
+codecTests =
   testGroup
     "Djnn.Codec"
     [ testCase "valid stdio server succeeds" $
@@ -43,6 +52,28 @@ tests =
                 ( StdioMissingCommand "very-bad"
                 :| [ DuplicateEnvKey "very-bad" "TOKEN" ]
                 )
+    ]
+
+hookTests :: TestTree
+hookTests =
+  testGroup
+    "Djnn.Schema.Hook"
+    [ testCase "UserPromptSubmit is a canonical hook event" $
+        assertBool
+          "UserPromptSubmit must be in canonicalHookEvents"
+          (UserPromptSubmit `elem` canonicalHookEvents)
+    , testCase "canonical events are exactly the Claude-Codex set" $
+        sort canonicalHookEvents
+          @?= sort
+                [ SessionStart
+                , UserPromptSubmit
+                , PreToolUse
+                , PostToolUse
+                , Stop
+                , PreCompact
+                , PostCompact
+                , PermissionRequest
+                ]
     ]
 
 baseServer :: MCPServer
