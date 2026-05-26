@@ -43,6 +43,10 @@ library
 
     exposed-modules:  Djnn.Codec
                       Djnn.Canonical
+                      Djnn.Surface.Hook.Claude
+                      Djnn.Surface.Hook.Codex
+                      Djnn.Surface.Hook.Cursor
+                      Djnn.Surface.Hook.Gemini
                       Djnn.Schema.Approval
                       Djnn.Schema.Hook
                       Djnn.Schema.MCP
