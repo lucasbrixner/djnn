@@ -1,12 +1,14 @@
 module Main (main) where
 
 import Data.List.NonEmpty (NonEmpty (..))
-import Data.List (sort)
+import Data.List (intersect, sort)
 import Test.Tasty
 import Test.Tasty.HUnit
 
 import Djnn.Codec
 import Djnn.Canonical
+import Djnn.Surface.Hook.Claude (claudeHookEvents)
+import Djnn.Surface.Hook.Codex  (codexHookEvents)
 import Djnn.Schema.MCP
 
 main :: IO ()
@@ -74,6 +76,9 @@ hookTests =
                 , PostCompact
                 , PermissionRequest
                 ]
+    , testCase "canonicalHookEvents matches Claude ∩ Codex bare-name intersection" $
+        sort (map show canonicalHookEvents)
+          @?= sort (claudeBareNames `intersect` codexBareNames)
     ]
 
 baseServer :: MCPServer
@@ -132,3 +137,9 @@ veryBad =
         , ("TOKEN", "def")
         ]
     }
+
+-- | Bare event names with the agent prefix stripped, for the Claude ∩ Codex
+-- assertion against canonicalHookEvents.
+claudeBareNames, codexBareNames :: [String]
+claudeBareNames = map (drop (length "Claude") . show) claudeHookEvents
+codexBareNames  = map (drop (length "Codex")  . show) codexHookEvents
