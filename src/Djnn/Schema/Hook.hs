@@ -30,13 +30,15 @@ module Djnn.Schema.Hook
 --     'Stop'. Each is a documented event with emission semantics on
 --     both Claude Code and Codex.
 --   * Schema-present on both, Codex runtime emission /not yet
---     documented/: 'PreCompact', 'PostCompact', 'PermissionRequest'.
---     These exist in Codex's generated wire schemas and config schema,
---     but the Codex hooks documentation does not yet describe them as
---     emitted (hooks are documented there as experimental). They are
---     retained because schema-presence on both sides is the modelling
---     basis; the render guarantee for them is schema-level, not
---     emission-level.
+--     documented/: 'SubagentStart', 'SubagentStop', 'PreCompact',
+--     'PostCompact', 'PermissionRequest'. These exist in Codex's
+--     generated wire schemas and config schema, but the Codex hooks
+--     documentation does not yet describe them as emitted (hooks are
+--     documented there as experimental). They are retained because
+--     schema-presence on both sides is the modelling basis; the
+--     render guarantee for them is schema-level, not emission-level.
+--     If a future Codex docs update promotes any of these into the
+--     emission-documented set, move them up to the strong-core bullet.
 --
 -- Events in only one of the two — e.g. Claude's @PostToolUseFailure@
 -- and @PermissionDenied@ — are intentionally excluded. The Gemini
@@ -51,6 +53,8 @@ data HookEvent
   | PreToolUse
   | PostToolUse
   | Stop
+  | SubagentStart
+  | SubagentStop
   | PreCompact
   | PostCompact
   | PermissionRequest

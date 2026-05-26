@@ -72,6 +72,8 @@ hookTests =
                 , PreToolUse
                 , PostToolUse
                 , Stop
+                , SubagentStart
+                , SubagentStop
                 , PreCompact
                 , PostCompact
                 , PermissionRequest
