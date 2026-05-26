@@ -180,6 +180,10 @@ compatibility claims mechanically rather than relying only on prose.
 - [ ] For each concern with complete per-agent surface models, add a test or
       validation assertion that the declared portable subset matches, or is a
       subset of, the support computed from those surfaces. **S**
+  - [x] `Hook` — Claude ∩ Codex bare-name intersection assertion in
+        `test/Main.hs`.
+  - [ ] `MCP` — pending Phase-3 MCP work.
+  - [ ] `Approval` — pending Phase-3 Approval work.
 
 ---
 
@@ -192,19 +196,22 @@ compatibility reasoning and later generation.
 
 ### Design decisions to lock first
 
-- [ ] Type-naming convention inside surface modules:
-      concern-local names used with qualified imports vs. distinct names such as
-      `ClaudeHook`, `CodexHook`, etc.
-- [ ] Whether early `Surface.*` modules are exposed modules or internal modules.
-- [ ] Initial concern and agent coverage order.
-      Recommendation: start with `Hook` for `{Claude, Codex}`, then revisit
-      `MCP` and `Approval`.
+- [x] Type-naming convention inside surface modules: distinct agent-prefixed
+      names (`ClaudeHookEvent`, `CodexHookHandler`, …), not module-qualified
+      generic names.
+- [x] Whether early `Surface.*` modules are exposed modules or internal modules:
+      exposed.
+- [x] Initial concern and agent coverage order: started with `Hook` for
+      `{Claude, Codex, Gemini, Cursor}`. Scope expanded from the original
+      `{Claude, Codex}` recommendation because authoritative sources were
+      available for all four (JSON schemas for Claude/Codex/Gemini, prose
+      docs for Cursor). `MCP` and `Approval` next.
 
 ### Tasks
 
-- [ ] Add initial hook surface modules, likely:
-      `Djnn.Surface.Hook.Claude` and `Djnn.Surface.Hook.Codex`.
-- [ ] Model hook events and related hook structure from authoritative sources.
+- [x] Add initial hook surface modules:
+      `Djnn.Surface.Hook.{Claude,Codex,Gemini,Cursor}`.
+- [x] Model hook events and related hook structure from authoritative sources.
 - [ ] Add MCP surface modules for the first supported agents.
 - [ ] Capture known MCP refinements not present in the v0 model, such as fields
       like `headers`, `cwd`, or `disabled`, where supported by the relevant

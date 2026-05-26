@@ -7,6 +7,15 @@
 - Added `ARCHITECTURE.md` to record the current Surface-oriented architecture
   direction: explicit per-agent surfaces, per-concern unified views, a deferred
   cross-concern aggregate, and an explicit mapping layer.
+- Per-agent hook surface modules under `Djnn.Surface.Hook.*`:
+  `Djnn.Surface.Hook.Claude`, `Djnn.Surface.Hook.Codex`,
+  `Djnn.Surface.Hook.Gemini`, `Djnn.Surface.Hook.Cursor`. Each models its
+  agent's hook surface verbatim from an authoritative source — JSON schema for
+  Claude/Codex/Gemini, official prose documentation for Cursor — and is a leaf
+  with no `Djnn.*` imports.
+- Phase-2 follow-on test asserting `Djnn.Schema.Hook.canonicalHookEvents`
+  against the computed bare-name intersection of the Claude and Codex per-agent
+  hook surfaces.
 
 ### Changed
 
@@ -27,6 +36,13 @@
 - Corrected `Djnn.Schema.Hook`'s rationale to state the schema-presence basis
   and to distinguish events emitted on both runtimes from those only
   schema-present on Codex (`PreCompact`, `PostCompact`, `PermissionRequest`).
+- `Djnn.Schema.Hook.canonicalHookEvents` was missing `SubagentStart` and
+  `SubagentStop`, both present under identical names in the Claude Code and
+  Codex CLI published hook schemas. Same bug class as the earlier
+  `UserPromptSubmit` omission, now caught mechanically by the new intersection
+  assertion rather than by prose review. Adds the two public `HookEvent`
+  constructors and updates the rationale block to list them in the
+  schema-presence-only group.
 
 ## 0.1.0.0 -- 2026-05-17
 
